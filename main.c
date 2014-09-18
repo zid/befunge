@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "befunge.h"
 
-#define BUF_MAX 512
+#define BUF_MAX 1024 
 
 static int read_line(FILE *f, char *buf, size_t maxlen)
 {

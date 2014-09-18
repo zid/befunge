@@ -28,6 +28,7 @@ struct befunge *befunge_new(void)
 
 	b->ht = NULL;
 	b->y = 0;
+
 	return b;
 }
 
@@ -39,7 +40,7 @@ static int befunge_instruction_insert(struct befunge *b, char c, size_t x, size_
 	i = malloc(sizeof (struct instruction));
 	if(!i)
 		return 0;
-	
+
 	i->c = c;
 	i->x = x;
 	i->y = y;
@@ -55,14 +56,14 @@ int befunge_add_line(struct befunge *b, size_t len, const char *buf)
 	/* Walk the line inserting found symbols into the hashtable */
 	for(x = 0; x<len; x++)
 	{
-		if(buf[x] != ' ')
-		{
-			int r;
+		int r;
 
-			r = befunge_instruction_insert(b, buf[i], x, b->y);
-			if(!r)
-				return 0;
-		}
+		if(buf[x] == ' ')
+			continue;
+
+		r = befunge_instruction_insert(b, buf[i], x, b->y);
+		if(!r)
+			return 0;
 	}
 
 	/* Next befunge_add_line will operate on a new y coordinate */
